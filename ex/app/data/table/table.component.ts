@@ -3,13 +3,12 @@ import code from './code'
 
 @Component({
   selector: 'ex-table-demo',
-  template: `
-  `,
+  template: ` `,
 })
 export class ExTableDemoComponent {
   private tableData: any[] = [{
     name: '火锅',
-    date: '2017-08-19',
+    date: 2017,
     address: '上海市普陀区金沙江路 1518 弄',
   }, {
     name: '重庆小面',
@@ -59,7 +58,7 @@ export class ExTableComponent {
   private code: string[] = code
   private page: any = {
     previous: { name: 'Pagination 分页', link: '/data/pagination' },
-    next: { name: 'Loading 加载', link: '/notice/loading' },
+    next: { name: 'Tree 树型控件', link: '/data/tree' },
   }
   private exClass: any = ExTableDemoComponent
   

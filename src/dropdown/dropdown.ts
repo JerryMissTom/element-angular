@@ -31,7 +31,7 @@ import { DocumentWrapper } from '../shared/services'
       </ng-container>
       <div [style]="makeListStyles()">
         <ul class="el-dropdown-menu" #list [@dropAnimation]="showMenu">
-          <el-dropdown-item *ngFor="let item of model" [model]="item" (selected)="selectHandle()">
+          <el-dropdown-item *ngFor="let item of model" [model]="item" (selected)="selectHandle(item)">
           </el-dropdown-item>
         </ul>
       </div>
@@ -80,9 +80,9 @@ export class ElDropdown extends ElDropdownProps implements OnDestroy, AfterViewI
     this.showMenu = !this.showMenu
     this.visibleChange.emit()
     this.globalListenFunc = this.renderer.listen(
-      'document',
-      'click',
-      () => this.closeMenu()
+      'document', 'click', () => {
+        this.closeMenu()
+      }
     )
   }
   
@@ -93,6 +93,7 @@ export class ElDropdown extends ElDropdownProps implements OnDestroy, AfterViewI
   }
   
   selectHandle(model: Value): void {
+    console.log(model)
     this.selected.emit(model)
     
     // select and hide menu (props)

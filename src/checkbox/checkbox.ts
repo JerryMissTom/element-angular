@@ -1,12 +1,18 @@
 import {
   Component, Input, Output, EventEmitter, OnInit,
-  ElementRef, Optional, AfterViewInit, ViewChild, OnChanges, SimpleChanges,
+  ElementRef, Optional, AfterViewInit, ViewChild, OnChanges, SimpleChanges, forwardRef,
 } from '@angular/core'
 import { ElCheckboxGroup } from './checkbox-group'
 import { isParentTag, removeNgTag } from '../shared/utils'
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms'
 
 @Component({
   selector: 'el-checkbox',
+  providers: [{
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => ElCheckbox),
+    multi: true
+  }],
   template: `
     <label class="el-checkbox">
     <span class="el-checkbox__input"
@@ -27,7 +33,7 @@ import { isParentTag, removeNgTag } from '../shared/utils'
     </label>
   `,
 })
-export class ElCheckbox implements OnInit, AfterViewInit, OnChanges {
+export class ElCheckbox implements OnInit, AfterViewInit, OnChanges, ControlValueAccessor {
   
   @ViewChild('content') content: any
   
@@ -58,13 +64,16 @@ export class ElCheckbox implements OnInit, AfterViewInit, OnChanges {
     return this.model
   }
   
-  changeHandle(t: boolean): void {
+  changeHandle(t: boolean, notEmit: boolean = false): void {
     if (this.parentIsGroup) {
       return this.hostGroup.updateModelFromChildren(t, this.label)
     }
     this.model = t
     this.checked = this.isChecked()
+  
+    if (notEmit) return
     this.modelChange.emit(this.model)
+    this.controlChange(this.model)
   }
   
   ngOnInit(): void {
@@ -87,7 +96,8 @@ export class ElCheckbox implements OnInit, AfterViewInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (!changes || !changes.model) return
     if (changes.model.isFirstChange()) return
-    this.changeHandle(this.model)
+    
+    this.changeHandle(changes.model.currentValue, true)
   }
   
   ngAfterViewInit(): void {
@@ -96,4 +106,20 @@ export class ElCheckbox implements OnInit, AfterViewInit, OnChanges {
       this.showLabel = !contentText || contentText.length < 1
     }, 0)
   }
+  
+  writeValue(value: any): void {
+    this.model = value
+  }
+  
+  registerOnChange(fn: Function): void {
+    this.controlChange = fn
+  }
+  
+  registerOnTouched(fn: Function): void {
+    this.controlTouch = fn
+  }
+  
+  private controlChange: Function = () => {}
+  private controlTouch: Function = () => {}
+  
 }

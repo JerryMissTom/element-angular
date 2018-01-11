@@ -1,5 +1,5 @@
 import { Component, forwardRef, Inject, ViewEncapsulation } from '@angular/core'
-import { ElMessageService } from '../../../../src/index'
+import { ElMessageService } from '../../../../src/element-angular.module'
 import { SafeUrl, DomSanitizer } from '@angular/platform-browser'
 import code from './code'
 
@@ -68,7 +68,7 @@ export class ExUploadComponent {
   private code: string[] = code
   private page: any = {
     previous: { name: 'Rate 评分', link: '/form/rate' },
-    next: { name: 'Tag 标签', link: '/data/tag' },
+    next: { name: 'Form 表单', link: '/form/form' },
   }
   private exClass: any = ExUploadDemoComponent
 

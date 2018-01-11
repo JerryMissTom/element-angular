@@ -1,8 +1,18 @@
-import { Component } from '@angular/core'
+import { Component, forwardRef } from '@angular/core'
 import { ElInputNumberPoprs } from './input-number-props'
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms'
 
 @Component({
   selector: 'el-input-number',
+  providers: [{
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => ElInputNumber),
+    multi: true
+  }],
+  styles: [`
+    .el-input-spin-button::-webkit-inner-spin-button { visibility: hidden; -webkit-appearance: none; }
+    .el-input-spin-button { -moz-appearance: textfield; }
+  `],
   template: `
     <div [class]="'el-input-number' + (size ? ' el-input-number--' + size : '')"
       [class.is-disabled]="disabled" [class.is-without-controls]="!controls">
@@ -15,8 +25,8 @@ import { ElInputNumberPoprs } from './input-number-props'
         <i class="el-icon-plus"></i>
       </span>
 
-      <div [class]="'el-input' + (size ? ' el-input--' + size : '')" [class.is-disabled]="disabled">
-        <input class="el-input__inner" autocomplete="off" role="spinbutton"
+      <div [class]="'el-input ' + (size ? ' el-input--' + size : '')" [class.is-disabled]="disabled">
+        <input class="el-input__inner el-input-spin-button  " autocomplete="off" role="spinbutton"
           [attr.max]="max" [attr.min]="min" [attr.aria-valuemax]="max" [attr.aria-valuemin]="min"
           [disabled]="disabled" [value]="model" [ngModel]="model" (ngModelChange)="changeHandle($event)"
           type="number" rows="2" aria-valuenow="1" [attr.aria-disabled]="disabled">
@@ -24,7 +34,7 @@ import { ElInputNumberPoprs } from './input-number-props'
     </div>
   `,
 })
-export class ElInputNumber extends ElInputNumberPoprs {
+export class ElInputNumber extends ElInputNumberPoprs implements ControlValueAccessor {
   
   minDisabled: boolean = false
   maxDisabled: boolean = false
@@ -67,7 +77,23 @@ export class ElInputNumber extends ElInputNumberPoprs {
     if (!this.maxDisabled && !this.minDisabled) {
       this.model = val
       this.modelChange.emit(this.model)
+      this.controlChange(this.model)
     }
   }
+  
+  writeValue(value: any): void {
+    this.model = value
+  }
+  
+  registerOnChange(fn: Function): void {
+    this.controlChange = fn
+  }
+  
+  registerOnTouched(fn: Function): void {
+    this.controlTouch = fn
+  }
+  
+  private controlChange: Function = () => {}
+  private controlTouch: Function = () => {}
   
 }

@@ -6,7 +6,8 @@ import { CommonModule } from '@angular/common'
 import { RouterModule } from '@angular/router'
 
 // Rendering ElComponent dependence
-import { ElModule } from '../../../../../src/index'
+import { ElModule } from '../../../../../src/element-angular.module'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 @Directive({
   selector: '[ex-dynamic]',
@@ -32,7 +33,7 @@ export class ElDynamicDirective implements OnInit {
     }))(class DynamicComponent extends this.parentClass {})
   
     @NgModule({
-      imports: [CommonModule, RouterModule, ElModule],
+      imports: [CommonModule, RouterModule, ElModule, FormsModule, ReactiveFormsModule],
       declarations: [decorated],
     })
     class DynamicModule {}

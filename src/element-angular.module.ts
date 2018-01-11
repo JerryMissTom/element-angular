@@ -1,5 +1,4 @@
 import { NgModule, ModuleWithProviders } from '@angular/core'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { ElMessageService } from './message/message.service'
 import { ElNotificationService } from './notification/notification.service'
 
@@ -38,6 +37,8 @@ import { ElPaginationModule } from './pagination/module'
 import { ElUploadModule } from './upload/module'
 import { ElTableModule } from './table/module'
 import { ElContainerModule } from './container/module'
+import { ElFormModule } from './form/module'
+import { ElTreeModule } from './tree/module'
 
 export const ElChildModules: any = {
   ElButtonsModule, ElIconsModule, ElRadiosModule, ElMenusModule, ElTooltipModule, ElRowModule,
@@ -45,7 +46,8 @@ export const ElChildModules: any = {
   ElSwitchModule, ElRateModule, ElProgressModule, ElStepsModule, ElLoadingModule, ElMessagesModule,
   ElSharedModule, ElNotificationModule, ElCascaderModule, ElBadgesModule, ElCardsModule, ElDropdownModule,
   ElBreadcrumbsModule, ElDateModule, ElSliderModule, ElDialogModule, ElCarouselModule, ElCollapseModule,
-  ElAlertModule, ElPaginationModule, ElUploadModule, ElTableModule, ElContainerModule,
+  ElAlertModule, ElPaginationModule, ElUploadModule, ElTableModule, ElContainerModule, ElFormModule,
+  ElTreeModule,
 }
 export const ELMODULES_GROUP: any[] = [
   ElButtonsModule, ElIconsModule, ElRadiosModule, ElMenusModule, ElTooltipModule, ElRowModule,
@@ -53,12 +55,12 @@ export const ELMODULES_GROUP: any[] = [
   ElSwitchModule, ElRateModule, ElProgressModule, ElStepsModule, ElLoadingModule, ElMessagesModule,
   ElSharedModule, ElNotificationModule, ElCascaderModule, ElBadgesModule, ElCardsModule, ElDropdownModule,
   ElBreadcrumbsModule, ElDateModule, ElSliderModule, ElDialogModule, ElCarouselModule, ElCollapseModule,
-  ElAlertModule, ElPaginationModule, ElUploadModule, ElTableModule, ElContainerModule,
+  ElAlertModule, ElPaginationModule, ElUploadModule, ElTableModule, ElContainerModule, ElFormModule,
+  ElTreeModule,
 ]
 
 @NgModule({
   imports: [
-    BrowserAnimationsModule,
     ElButtonsModule.forRoot(), ElIconsModule.forRoot(), ElRadiosModule.forRoot(), ElMenusModule.forRoot(),
     ElTooltipModule.forRoot(), ElRowModule.forRoot(), ElColModule.forRoot(), ElCheckboxsModule.forRoot(),
     ElInputsModule.forRoot(), ElInputNumberModule.forRoot(), ElTagsModule.forRoot(), ElSelectModule.forRoot(),
@@ -67,25 +69,20 @@ export const ELMODULES_GROUP: any[] = [
     ElCascaderModule.forRoot(), ElBadgesModule.forRoot(), ElCardsModule.forRoot(), ElDropdownModule.forRoot(),
     ElBreadcrumbsModule.forRoot(), ElDateModule.forRoot(), ElSliderModule.forRoot(), ElDialogModule.forRoot(),
     ElCarouselModule.forRoot(), ElCollapseModule.forRoot(), ElAlertModule.forRoot(), ElPaginationModule.forRoot(),
-    ElUploadModule.forRoot(), ElTableModule.forRoot(), ElContainerModule.forRoot(),
+    ElUploadModule.forRoot(), ElTableModule.forRoot(), ElContainerModule.forRoot(), ElFormModule.forRoot(),
+    ElTreeModule.forRoot(),
   ],
-  exports: ELMODULES_GROUP,
-})
-export class ElRootModule {
-}
-
-@NgModule({
-  imports: ELMODULES_GROUP,
   exports: ELMODULES_GROUP,
 })
 class ElModule {
   static forRoot(): ModuleWithProviders {
     return {
-      ngModule: ElRootModule,
+      ngModule: ElModule,
       providers: [],
     }
   }
 }
+
 
 export {
   ElModule,

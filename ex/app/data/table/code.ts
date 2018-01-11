@@ -1,13 +1,22 @@
 export default [
 // 基础用法
 `
-
-<el-table [model]="tableData">
+<el-table [model]="tableData" [scroll-x]="true" center="all">
   <el-table-column model-key="name" label="姓名" width="140">
   </el-table-column>
   <el-table-column model-key="date" label="日期" width="140">
   </el-table-column>
-  <el-table-column model-key="address" label="地址">
+  <el-table-column model-key="address" label="地址" width="140">
+  </el-table-column>
+   <el-table-column label="操作" width="120">
+    <ng-template #slot let-scope="scope">
+      <el-button type="text" size="small" (click)="handle(scope)">删除</el-button>
+    </ng-template>
+  </el-table-column>
+   <el-table-column label="操作" width="120">
+    <ng-template #slot let-scope="scope">
+      <el-button type="text" size="small" (click)="handle(scope)">删除</el-button>
+    </ng-template>
   </el-table-column>
 </el-table>
 
@@ -35,7 +44,6 @@ private tableData: any[] = [{
 
 // 斑马纹表格
 `
-
 <el-table [model]="tableData" [stripe]="true">
   <el-table-column model-key="name" label="姓名" width="140">
   </el-table-column>
@@ -49,7 +57,6 @@ private tableData: any[] = [{
 
 // 边框
 `
-
 <el-table [model]="tableData" [border]="true">
   <el-table-column model-key="name" label="姓名" width="140">
   </el-table-column>
@@ -58,12 +65,10 @@ private tableData: any[] = [{
   <el-table-column model-key="address" label="地址">
   </el-table-column>
 </el-table>
-
 `,
 
 // 带状态
 `
-
 <el-table [model]="tableData" [row-class-name]="rowClassNameFilter">
   <el-table-column model-key="name" label="姓名" width="140">
   </el-table-column>
@@ -98,7 +103,6 @@ rowClassNameFilter(row: any, index: number): string {
 
 // 固定表头
 `
-
 <el-table [model]="tableDataMore" height="300px">
   <el-table-column model-key="name" label="姓名" width="150">
   </el-table-column>
@@ -107,12 +111,10 @@ rowClassNameFilter(row: any, index: number): string {
   <el-table-column model-key="address" label="地址">
   </el-table-column>
 </el-table>
-
 `,
 
 // 插入按钮
 `
-
 <el-table [model]="tableData">
   <el-table-column model-key="name" label="姓名" width="120">
   </el-table-column>
@@ -136,12 +138,10 @@ handle(ref: any): void {
   ref.destroy()
 }
 </script>
-
 `,
 
 // 多级表头
 `
-
 <el-table [model]="tableDataMore" [border]="true">
   <el-table-column model-key="name" label="姓名" width="150">
   </el-table-column>

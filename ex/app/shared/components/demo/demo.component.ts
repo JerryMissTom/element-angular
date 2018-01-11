@@ -3,7 +3,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser'
 import { ActivatedRoute } from '@angular/router'
 import { HighLightPipe } from '../../pipe'
-import { ElMessageService } from '../../../../../src/index'
+import { ElMessageService } from '../../../../../src/element-angular.module'
 
 @Component({
   selector: 'ex-demo',
@@ -36,7 +36,6 @@ import { ElMessageService } from '../../../../../src/index'
 })
 export class ExDemoComponent implements OnInit {
   
-  @Input() link: string
   @Input() notes: string
   @Input() code: string
   @Input('class') parentClass: new ([string]?: any) => {} = class {}

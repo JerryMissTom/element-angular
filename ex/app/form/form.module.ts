@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { FormRoutingModule } from './form.routing'
-import { ElModule } from '../../../src/index'
+import { ElModule } from '../../../src/element-angular.module'
 import { ExSharedModule } from '../shared/module'
 
 import { ExFormMainComponent } from './main/main.component'
@@ -17,6 +17,7 @@ import { ExCascaderComponent, ExCascaderDemoComponent } from './cascader/cascade
 import { ExDatePickerComponent } from './date-picker/date-picker.component'
 import { ExSliderComponent } from './slider/slider.component'
 import { ExUploadComponent, ExUploadDemoComponent } from './upload/upload.component'
+import { ExFormComponent } from './form/form.component'
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { ExUploadComponent, ExUploadDemoComponent } from './upload/upload.compon
     ExSliderComponent,
     ExUploadComponent,
     ExUploadDemoComponent,
+    ExFormComponent,
   ],
   imports: [
     CommonModule,
